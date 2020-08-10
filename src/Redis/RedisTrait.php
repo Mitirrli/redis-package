@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mitirrli\RedisPackage\Redis;
 
 use Redis;
-use Mitirrli\RedisPackage\Application;
+use Mitirrli\RedisPackage\App;
 
 trait RedisTrait
 {
@@ -19,12 +19,12 @@ trait RedisTrait
      *
      * @param Redis $redis
      *
-     * @return Application
+     * @return App
      */
     public static function setRedis(Redis $redis)
     {
         self::$redis = $redis;
 
-        return new Application();
+        return new App();
     }
 }
