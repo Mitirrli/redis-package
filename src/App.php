@@ -9,7 +9,7 @@ use Mitirrli\RedisPackage\{App\Lock, Exception\ApplicationException, Redis\Redis
 /**
  * @method static Lock Lock(array $key)
  */
-class Application
+class App
 {
     use RedisTrait;
 
