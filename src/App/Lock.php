@@ -4,73 +4,40 @@ declare(strict_types=1);
 
 namespace Mitirrli\RedisPackage\App;
 
-use Mitirrli\RedisPackage\Redis\RedisConnect;
 use Mitirrli\RedisPackage\Exception\KeyException;
-use Mitirrli\RedisPackage\Constant\Lock as LockConstant;
+use Mitirrli\RedisPackage\Redis\RedisConnect;
+use Mitirrli\RedisPackage\Traits\LockTrait;
 
 /**
  * Lock Application.
  */
 class Lock extends RedisConnect
 {
-    /**
-     * Lock Time.
-     */
-    protected $time = LockConstant::DEFAULT_LOCK_TIME;
-
-    /**
-     * Lock Key.
-     */
-    protected $key;
-
-    /**
-     * Lock Value.
-     */
-    protected $val;
+    use LockTrait;
 
     /**
      * Lock constructor.
      *
-     * @param $key
+     * @param array $params
      * @throws KeyException
      */
-    public function __construct($key)
+    public function __construct(array $params)
     {
         parent::__construct();
 
-        $this->key = $this->setKey(reset($key));
-        $this->val = $this->setValue();
-    }
-
-    /**
-     * Set Value.
-     *
-     * @return string
-     */
-    public function setValue()
-    {
-        return time() . uniqid() . md5($_SERVER['REQUEST_TIME'] . $_SERVER['REMOTE_ADDR']) . mt_rand(1, 999);
-    }
-
-    /**
-     * Set Key.
-     *
-     * @param $key
-     * @return string
-     * @throws KeyException
-     */
-    public function setKey($key)
-    {
-        if (empty($key)) {
-            throw new KeyException('Key can not be empty string.', 2);
+        foreach ($params = reset($params) as $property => $value) {
+            if (property_exists($this, $property)) {
+                $this->{"set" . ucfirst($property)}($value);
+            }
         }
-
-        return sprintf(LockConstant::LOCK_NAME, $key);
+        
+        if (!isset($this->key)) {
+            throw new KeyException('Key must be defined', 3);
+        }
     }
 
-
     /**
-     * 加锁 .
+     * Lock.
      * @return bool
      */
     public function lock()
@@ -79,10 +46,10 @@ class Lock extends RedisConnect
     }
 
     /**
-     * 解锁 .
-     * @return mixed
+     * unLock.
+     * @return bool
      */
-    public function unlock()
+    public function unLock()
     {
         $lua = "if redis.call('get', KEYS[1]) == ARGV[1]
         then
@@ -91,6 +58,6 @@ class Lock extends RedisConnect
             return 0 
         end";
 
-        return $this->redis->eval($lua, [$this->key, $this->val], 1);
+        return (bool)$this->redis->eval($lua, [$this->key, $this->val], 1);
     }
 }
