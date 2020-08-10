@@ -7,7 +7,7 @@ namespace Mitirrli\RedisPackage;
 use Mitirrli\RedisPackage\{App\Lock, Exception\ApplicationException, Redis\RedisTrait};
 
 /**
- * @method static Lock Lock(string $key)
+ * @method static Lock Lock(array $key)
  */
 class Application
 {
@@ -16,12 +16,13 @@ class Application
     /**
      * Call Static.
      *
-     * @param $name
-     * @param $arguments
+     * @param string $name
+     * @param array $arguments
      * @return Lock
      * @throws ApplicationException
+     * @throws Exception\KeyException
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic(string $name, array $arguments)
     {
         switch ($name) {
             case 'Lock':
