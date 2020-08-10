@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Mitirrli\RedisPackage\Constant;
 
 /**
- * 锁.
+ * Lock.
  */
 abstract class Lock
 {
-    //默认加锁时间
+    //Default Lock Time.
     const DEFAULT_LOCK_TIME = 600;
 
-    //锁的格式
+    //Lock Format.
     const LOCK_NAME = 'mi_app_lock:%s';
 }
