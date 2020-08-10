@@ -1,0 +1,22 @@
+{
+    "name": "mitirrli/redis-package",
+    "description": "Redis periphery applications.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mitirrli",
+            "email": "phper.blue@gmail.com"
+        }
+    ],
+    "require": {
+        "ext-redis": "*",
+        "phpunit/phpunit": "6.5.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mitirrli\\RedisPackage\\": "./src",
+            "Mitirrli\\RedisPackage\\Tests\\": "tests"
+        }
+    }
+}
