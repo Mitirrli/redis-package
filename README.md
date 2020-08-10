@@ -12,9 +12,9 @@ A simple redis packages.
 $ composer require "mitirrli/redis-package"
 ```
 
-### Redis Distributed lock
+> ## Redis Distributed lock
 
-#### 1 App::setRedis()
+#### App::setRedis()
 若不使用默认配置,可以注入redis对象,返回App对象本身.
 
 ```
@@ -24,7 +24,7 @@ $redis->connect('redis-template.cc');
 $app = App::setRedis($redis);
 ```
 
-#### 2 App::Lock()
+#### App::Lock()
 获取Lock对象,同时传入配置项(设置锁的名字,默认加锁时间为10分钟,key为必传项).
 ```
 $Lock = $app::Lock(['key' => 'demo1']);
@@ -34,13 +34,13 @@ $Lock = $app::Lock(['key' => 'demo1']);
 $Lock = $app::Lock(['key' => 'demo2', 'time' => 1000]);
 ```
 
-#### 3 lock()
+#### lock()
 进行加锁操作,加锁结果以布尔值返回.
 ```
 $Lock->lock()
 ```
 
-#### 4 unLock()
+#### unLock()
 进行解锁操作,解锁结果以布尔值返回.
 ```
 $Lock->unLock()
