@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mitirrli\RedisPackage\Redis;
 
 use Redis;
-use Mitirrli\RedisPackage\Application;
+use Mitirrli\RedisPackage\App;
 
 /**
  * Redis Connect.
@@ -22,6 +22,6 @@ abstract class RedisConnect
      */
     public function __construct()
     {
-        $this->redis = Application::$redis ?? new Redis();
+        $this->redis = App::$redis ?? new Redis();
     }
 }
