@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mitirrli\RedisPackage\Traits;
 
 use Mitirrli\RedisPackage\Exception\KeyException;
-use Mitirrli\RedisPackage\Constant\Lock as LockConstant;
+use Mitirrli\RedisPackage\Constant\Lock;
 
 trait LockTrait
 {
@@ -22,7 +22,7 @@ trait LockTrait
     /**
      * Lock time.
      */
-    protected $time = LockConstant::DEFAULT_LOCK_TIME;
+    protected $time = Lock::DEFAULT_LOCK_TIME;
 
     /**
      * Set key.
@@ -36,7 +36,7 @@ trait LockTrait
             throw new KeyException('Key can not be empty string.', 2);
         }
 
-        $this->key = sprintf(LockConstant::LOCK_NAME, $key);
+        $this->key = sprintf(Lock::LOCK_NAME, $key);
     }
 
     /**

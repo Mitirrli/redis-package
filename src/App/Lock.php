@@ -4,37 +4,15 @@ declare(strict_types=1);
 
 namespace Mitirrli\RedisPackage\App;
 
-use Mitirrli\RedisPackage\Exception\KeyException;
-use Mitirrli\RedisPackage\Redis\RedisConnect;
 use Mitirrli\RedisPackage\Traits\LockTrait;
+use Mitirrli\RedisPackage\Redis\AbstractApplication;
 
 /**
  * Lock Application.
  */
-class Lock extends RedisConnect
+class Lock extends AbstractApplication
 {
     use LockTrait;
-
-    /**
-     * Lock constructor.
-     *
-     * @param array $params
-     * @throws KeyException
-     */
-    public function __construct(array $params)
-    {
-        parent::__construct();
-
-        foreach ($params = reset($params) as $property => $value) {
-            if (property_exists($this, $property)) {
-                $this->{"set" . ucfirst($property)}($value);
-            }
-        }
-        
-        if (!isset($this->key)) {
-            throw new KeyException('Key must be defined', 3);
-        }
-    }
 
     /**
      * Lock.
