@@ -1,4 +1,4 @@
-<h1 align="center"> Redis pkg </h1>
+<h1 align="center"> Redis package </h1>
 
 [![Total Downloads](https://poser.pugx.org/mitirrli/redis-package/downloads)](https://packagist.org/packages/mitirrli/redis-package)
 [![Latest Stable Version](https://poser.pugx.org/mitirrli/redis-package/v/stable)](https://packagist.org/packages/mitirrli/redis-package)
