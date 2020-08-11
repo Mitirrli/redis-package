@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Mitirrli\RedisPackage;
 
-use Mitirrli\RedisPackage\{App\Lock, Exception\ApplicationException, Redis\RedisTrait};
+use Mitirrli\RedisPackage\{App\FixedArray, App\Lock, Exception\ApplicationException, Redis\RedisTrait};
 
 /**
- * @method static Lock Lock(array $key)
+ * @method static Lock Lock(array $params) 分布式锁
+ * @method static FixedArray FixedArray(array $params) 固定大小的数组
  */
 class App
 {
@@ -18,7 +19,7 @@ class App
      *
      * @param string $name
      * @param array $arguments
-     * @return Lock
+     * @return Lock|FixedArray
      * @throws ApplicationException
      * @throws Exception\KeyException
      */
@@ -27,6 +28,9 @@ class App
         switch ($name) {
             case 'Lock':
                 return new Lock($arguments);
+
+            case 'FixedArray':
+                return new FixedArray($arguments);
 
             default:
                 throw new ApplicationException('App Not Exists.', 1);
