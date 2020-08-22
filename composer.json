@@ -11,7 +11,7 @@
     ],
     "require": {
         "ext-redis": "*",
-        "phpunit/phpunit": "6.5.14"
+        "phpunit/phpunit": ""
     },
     "autoload": {
         "psr-4": {
