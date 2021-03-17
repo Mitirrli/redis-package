@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mitirrli\RedisPackage;
+namespace Qjdata\RedisPackage;
 
-use Mitirrli\RedisPackage\{App\FixedArray, App\Lock, Exception\ApplicationException, Redis\RedisTrait};
+use Qjdata\RedisPackage\{App\FixedArray, App\Lock, Exception\ApplicationException, Redis\RedisTrait};
+use Qjdata\RedisPackage\App\FixedSortSet;
 
 /**
  * @method static Lock Lock(array $params) 分布式锁
  * @method static FixedArray FixedArray(array $params) 固定大小的数组
+ * @method static FixedSortSet FixedSortSet(array $params) 固定大小的有序集合
  */
 class App
 {
@@ -31,6 +33,9 @@ class App
 
             case 'FixedArray':
                 return new FixedArray($arguments);
+
+            case 'FixedSortSet':
+                return new FixedSortSet($arguments);
 
             default:
                 throw new ApplicationException('App Not Exists.', 1);
