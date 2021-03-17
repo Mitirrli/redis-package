@@ -77,3 +77,28 @@ $FixedArray->lLen();
 ```
 $FixedArray->getItemByIndex(0);
 ```
+
+> ## Redis Sort Set
+> 固定大小的有序集合。
+
+#### App::FixedSortSet()
+获取FixedSortSet对象，同时传入配置项(设置key的名字，key为必传项)
+```
+$FixedSortSet = $app::FixedSortSet((['key' => 'demo1']);
+```
+设置集合数目20个。
+```
+$FixedSortSet = $app::FixedSortSet(['key' => 'demo2', 'len' => 20]);
+```
+
+#### toList()
+往集合中加入数据。
+```
+$FixedSortSet->toList('test data');
+```
+
+#### getTop()
+获取最小的15个数据。
+```
+$FixedSortSet->getTop(15);
+```
