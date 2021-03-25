@@ -43,12 +43,12 @@ class FixedSortSet extends AbstractApplication
     }
 
     /**
-     * Get data.
+     * Get by index.
      *
-     * @param int $num
-     * @return bool|mixed|string
+     * @param integer $index
+     * @return array
      */
-    public function getTop(int $num)
+    public function getByIndex(int $index)
     {
         $rand = mt_rand(1, 15);
         //随机删除(集合总数 > 希望的数目)
@@ -56,9 +56,8 @@ class FixedSortSet extends AbstractApplication
             $this->delete();
         }
 
-        return $this->redis->zRange($this->key, 0, $num - 1) ?? [];
+        return $this->redis->zRange($this->key, $index, $index) ?? [];
     }
-
 
     /**
      * Delete random.
