@@ -97,8 +97,8 @@ $FixedSortSet = $app::FixedSortSet(['key' => 'demo2', 'len' => 20]);
 $FixedSortSet->toList('test data');
 ```
 
-#### getTop()
-获取最小的15个数据。
+#### getByIndex()
+获取指定下标的数据(数据由大到小)。
 ```
-$FixedSortSet->getTop(15);
+$FixedSortSet->getByIndex(0);
 ```
