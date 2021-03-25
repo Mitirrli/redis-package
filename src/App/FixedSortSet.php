@@ -50,13 +50,12 @@ class FixedSortSet extends AbstractApplication
      */
     public function getByIndex(int $index)
     {
-        $rand = mt_rand(1, 15);
-        //随机删除(集合总数 > 希望的数目)
-        if (($rand === 10) && ($this->zLen() > $this->len)) {
+        // random delete (集合总数 > 期望的数目)
+        if ((mt_rand(1, 15) === 10) && ($this->zLen() > $this->len)) {
             $this->delete();
         }
 
-        return $this->redis->zRange($this->key, $index, $index) ?? [];
+        return $this->redis->zRevRange($this->key, $index, $index) ?? [];
     }
 
     /**
@@ -66,7 +65,7 @@ class FixedSortSet extends AbstractApplication
      */
     public function delete()
     {
-        $keys = $this->redis->zRange($this->key, $this->len, -1);
+        $keys = $this->redis->zRevRange($this->key, $this->len, -1);
 
         $this->redis->zRem($this->key, ...$keys);
     }
